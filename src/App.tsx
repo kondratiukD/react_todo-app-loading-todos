@@ -16,7 +16,7 @@ export const App: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // const activeTodos = todos.filter(todo => !todo.cocompleted);
+  const activeTodos = todos.filter(todo => !todo.cocompleted);
 
   useEffect(() => {
     getTodos()
@@ -59,9 +59,10 @@ export const App: React.FC = () => {
         {!loading && noTodosFound && <p>No todos found</p>}
 
         <Footer
+          todos={todos}
           currentFilter={filter}
           setFilter={setFilter}
-          activeTodos={todos.filter(todo => !todo.completed).length}
+          activeTodos={activeTodos}
         />
       </div>
 
@@ -83,16 +84,7 @@ export const App: React.FC = () => {
           className="delete"
           onClick={() => setErrorMessage(null)}
         />
-        {/* show only one message at a time */}
-        Unable to load todos
-        <br />
-        Title should not be empty
-        <br />
-        Unable to add a todo
-        <br />
-        Unable to delete a todo
-        <br />
-        Unable to update a todo
+        {errorMessage}
       </div>
     </div>
   );
