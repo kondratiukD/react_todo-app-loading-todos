@@ -16,7 +16,8 @@ export const App: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const activeTodos = todos.filter(todo => !todo.cocompleted);
+  const activeTodos = todos.filter(todo => !todo.completed);
+  const hasCompletedTodos = todos.some(todo => todo.completed);
 
   useEffect(() => {
     getTodos()
@@ -56,13 +57,12 @@ export const App: React.FC = () => {
         {loading && <p>Loading todos...</p>}
 
         {!loading && visibleTodo && <TodoList todos={filteredTodos} />}
-        {!loading && noTodosFound && <p>No todos found</p>}
 
         <Footer
-          todos={todos}
           currentFilter={filter}
           setFilter={setFilter}
-          activeTodos={activeTodos}
+          activeTodos={activeTodos.length}
+          hasCompletedTodos={hasCompletedTodos}
         />
       </div>
 

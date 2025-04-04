@@ -1,19 +1,18 @@
 import classNames from 'classnames';
 import { Filter } from '../../types/Filter';
-import { Todo } from '../../types/Todo';
 
 type Props = {
-  todos: Todo[];
   activeTodos: number;
   setFilter: (filter: Filter) => void;
   currentFilter: Filter;
+  hasCompletedTodos: boolean;
 };
 
 export const Footer: React.FC<Props> = ({
-  todos,
   activeTodos,
   setFilter,
   currentFilter,
+  hasCompletedTodos,
 }) => {
   return (
     <footer className="todoapp__footer" data-cy="Footer">
@@ -33,7 +32,7 @@ export const Footer: React.FC<Props> = ({
             data-cy={`FilterLink${f}`}
             onClick={() => setFilter(f)}
           >
-            {f}
+            {f.charAt(0).toUpperCase() + f.slice(1).toLowerCase()}
           </a>
         ))}
       </nav>
@@ -43,7 +42,7 @@ export const Footer: React.FC<Props> = ({
         type="button"
         className="todoapp__clear-completed"
         data-cy="ClearCompletedButton"
-        disabled={!todos.some(todo => todo.completed)}
+        disabled={!hasCompletedTodos}
       >
         Clear completed
       </button>
